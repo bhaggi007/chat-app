@@ -10,10 +10,17 @@ const io = socketio(server);
 const port = process.env.PORT || 3000;
 const publicDirectory = path.join(__dirname,'../public')
 
+
+
 app.use(express.static(publicDirectory));
 
-io.on('connection',()=>{
-    console.log('New socket connection')
+io.on('connection',(socket)=>{
+    console.log('New socket connection');
+    socket.emit('welcomeMsg','Welcome!');
+
+    socket.on('sentMessage',(msg) => {
+        io.emit('updatedMsg',msg);
+    })
 })
 
 server.listen(port, ()=>{
