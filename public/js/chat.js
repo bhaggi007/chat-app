@@ -6,6 +6,6 @@ document.querySelector('#chat-form').addEventListener('submit',(e) => {
     socketio.emit('sentMessage',msg);
 })
 
-socketio.on('receivedMsg',(updatedMessage) => {
+socketio.on('message',(updatedMessage) => {
     console.log(updatedMessage)
 })
