@@ -4,7 +4,7 @@ const express = require("express");
 const socketio = require("socket.io");
 const Filter = require("bad-words");
 
-const { generateMessage } = require('./utils/messages')
+const { generateMessage,generateLocationMessage } = require('./utils/messages')
 
 
 const port = process.env.PORT || 3000;
@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     })
     socket.on('sendLocation', (location, callback) => {
 
-        io.emit('locationMessage', `https://google.com/maps?q=${location.latitude},${location.longitude}`)
+        io.emit('locationMessage', generateLocationMessage(`https://google.com/maps?q=${location.latitude},${location.longitude}`))
         callback();
     })
 })
