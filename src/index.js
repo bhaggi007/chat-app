@@ -22,6 +22,9 @@ io.on('connection',(socket)=>{
     socket.on('disconnect',() => {
         io.emit('message','A user has left')
     })
+    socket.on('sendLocation',(location) => {
+        io.emit('message',`https://google.com/maps?q=${location.latitude},${location.longitude}`)
+    })
 })
 
 app.use(express.static(publicpath));

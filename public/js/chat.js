@@ -9,3 +9,16 @@ document.querySelector('#chat-form').addEventListener('submit',(e) => {
 socketio.on('message',(updatedMessage) => {
     console.log(updatedMessage)
 })
+
+document.querySelector('#send-location').addEventListener('click',()=>{
+    if(!navigator.geolocation){
+        return alert('Geolocation is not supported by your browser')
+    }
+    navigator.geolocation.getCurrentPosition((position) => {
+        socketio.emit('sendLocation',{
+            latitude:position.coords.latitude,
+            longitude:position.coords.longitude
+        })
+        console.log(position)
+    })
+})
