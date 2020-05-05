@@ -7,9 +7,12 @@ const $messageFormButton = document.querySelector('button')
 const $sendLocationButton = document.querySelector('#send-location')
 const $messages = document.querySelector('#messages')
 
-
+//Template
 const messageTemplate = document.querySelector('#message-template').innerHTML
 const locationTemplate = document.querySelector('#location-template').innerHTML
+
+// Options
+const {username,room} = Qs.parse(location.search,{ignoreQueryPrefix:true})
 
 socketio.on('message', (updatedMessage) => {
     console.log(updatedMessage)
@@ -64,3 +67,5 @@ $sendLocationButton.addEventListener('click', () => {
        // console.log(position)
     })
 })
+
+socketio.emit('join',{username,room})
