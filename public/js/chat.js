@@ -9,6 +9,7 @@ const $messages = document.querySelector('#messages')
 
 
 const messageTemplate = document.querySelector('#message-template').innerHTML
+const locationTemplate = document.querySelector('#location-template').innerHTML
 
 socketio.on('message', (updatedMessage) => {
     console.log(updatedMessage)
@@ -18,6 +19,13 @@ socketio.on('message', (updatedMessage) => {
     $messages.insertAdjacentHTML('beforeend',html)
 })
 
+socketio.on('locationMessage', (location) => {
+    console.log(location);
+    const html = Mustache.render(locationTemplate,{
+        location
+    })
+    $messages.insertAdjacentHTML('beforeend',html)
+})
 
 $messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -51,6 +59,6 @@ $sendLocationButton.addEventListener('click', () => {
             $sendLocationButton.removeAttribute('disabled')
             console.log('Location shared!')
         })
-        console.log(position)
+       // console.log(position)
     })
 })
