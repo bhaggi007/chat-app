@@ -14,7 +14,8 @@ const locationTemplate = document.querySelector('#location-template').innerHTML
 socketio.on('message', (updatedMessage) => {
     console.log(updatedMessage)
     const html = Mustache.render(messageTemplate,{
-        message:updatedMessage
+        message:updatedMessage.text,
+        createdAt: moment(updatedMessage.createdAt).format("h:mm a")
     })
     $messages.insertAdjacentHTML('beforeend',html)
 })
